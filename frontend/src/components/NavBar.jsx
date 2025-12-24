@@ -9,35 +9,44 @@ export default function Navbar() {
     logout();
     navigate("/login");
   };
-  console.log("USER OBJECT:", user);    
-  return (
-    <div className="navbar bg-base-100 shadow-md px-4">
 
+  return (
+    <div className="navbar bg-base-100 shadow-md px-2 sm:px-4">
+      {/* Логотип */}
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl font-bold">
-          💰 FinanceTracker
+        <Link
+          to="/"
+          className="btn btn-ghost px-2 text-lg sm:text-xl font-bold gap-1"
+        >
+          <span>💰</span>
+          <span className="hidden xs:inline-block">FinanceTracker</span>
         </Link>
       </div>
 
-      <div className="flex-none gap-2">
+      <div className="flex-none gap-1 sm:gap-2">
         {isAuth ? (
-          // Если залогинен
-          <div className="flex items-center gap-4">
-            <span className="font-medium">Привет, {user?.username}!</span>
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* На мобільних показуємо тільки ім'я без "Привет", або ховаємо зовсім */}
+            <span className="text-sm sm:text-base font-medium max-w-[100px] sm:max-w-none truncate">
+              <span className="hidden sm:inline">Привет, </span>
+              {user?.username}
+            </span>
+
             <button
               onClick={handleLogout}
-              className="btn btn-outline btn-error btn-sm"
+              className="btn btn-error btn-outline btn-xs sm:btn-sm"
             >
-              Выйти
+              <span className="hidden xs:inline">Выйти</span>
+              {/* Іконка виходу для зовсім маленьких екранів */}
+              <span className="xs:hidden">✕</span>
             </button>
           </div>
         ) : (
-          // Если гость
-          <div className="flex gap-2">
-            <Link to="/login" className="btn btn-ghost btn-sm">
+          <div className="flex gap-1">
+            <Link to="/login" className="btn btn-ghost btn-xs sm:btn-sm">
               Войти
             </Link>
-            <Link to="/register" className="btn btn-primary btn-sm">
+            <Link to="/register" className="btn btn-primary btn-xs sm:btn-sm">
               Регистрация
             </Link>
           </div>
