@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  // Обязательно https и БЕЗ порта 5000
+  baseURL: "https://trbackend-production.up.railway.app/api",
 });
 
 api.interceptors.request.use(
@@ -10,11 +11,11 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    return config; 
+    return config;
   },
   (error) => {
     return Promise.reject(error);
   }
 );
 
-export default api
+export default api;
