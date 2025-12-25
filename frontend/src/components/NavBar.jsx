@@ -37,7 +37,6 @@ export default function Navbar() {
               className="btn btn-error btn-outline btn-xs sm:btn-sm"
             >
               <span className="hidden xs:inline">Выйти</span>
-              {/* Іконка виходу для зовсім маленьких екранів */}
               <span className="xs:hidden">✕</span>
             </button>
           </div>

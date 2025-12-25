@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import PublicRoute from "./components/PublicRoute";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
+import Home from "./pages/Home";
 
 function App() {
   const checkAuth = useAuthStore((state) => state.checkAuth);
@@ -32,6 +33,7 @@ function App() {
         <NavBar />
 
         <Routes>
+          <Route path="/" element={<Home />}/>
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
