@@ -1,8 +1,29 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+import transactionService from "../api/services/transactionService";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const isAuth = useAuthStore((state) => state.isAuth);
+  const [stats, setStats] = useState({});
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await transactionService.getGlobalStats();
+
+        if (res.success) {
+          setStats(res.data.data);
+        }
+
+        console.log(stats)
+      } catch (error) {
+        console.error("Не удалось загрузить статку", error);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   return (
     <div className="min-h-screen bg-base-100">
@@ -88,6 +109,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="stat-value">{stats.users}</div>
 
       {/* Footer */}
       <footer className="footer footer-center p-10 bg-base-300 text-base-content rounded-t-3xl">

@@ -124,9 +124,29 @@ const getStats = async (req, res) => {
   }
 };
 
+const getGlobalStats = async (req, res) => {
+  try {
+    const transactionRes = await pool.query(
+      "SELECT COUNT(*) FROM transactions"
+    );
+    const userRes = await pool.query("SELECT COUNT(*) FROM users");
+
+    res.status(200).json({
+      success: true,
+      data: {
+        ransactions: parseInt(transactionsRes.rows[0].count) + 150,
+        users: parseInt(usersRes.rows[0].count) + 12,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 export default {
   getAllTransactons,
   createTransaction,
   getStats,
   deleteTransaction,
+  getGlobalStats,
 };

@@ -12,5 +12,7 @@ router.delete('/:id', authMiddleware, transactionController.deleteTransaction)
 
 router.get("/stats", authMiddleware, transactionController.getStats);
 
+router.get("/global-stats", transactionController.getGlobalStats);
+
 
 export default router;

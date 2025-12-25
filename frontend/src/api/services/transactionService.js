@@ -20,6 +20,11 @@ const transactionService = {
     const response = await api.delete(`/transactions/${id}`);
     return response.data;
   },
+
+  getGlobalStats: async () => {
+    const response = await api.get("/transactions/global-stats");
+    return response.data;
+  },
 };
 
 export default transactionService;

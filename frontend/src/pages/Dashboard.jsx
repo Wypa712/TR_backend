@@ -18,11 +18,9 @@ export default function Dashboard() {
   const [transactions, setTransactions] = useState({ message: [] });
 
   const fetchStats = async () => {
-    // Включаем скелетон только при первой загрузке
     if (!stats) setLoading(true);
 
     try {
-      // Искусственная задержка для плавности
       const delay = new Promise((resolve) => setTimeout(resolve, 800));
 
       const [statData, transData] = await Promise.all([
