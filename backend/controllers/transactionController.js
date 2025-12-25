@@ -126,10 +126,10 @@ const getStats = async (req, res) => {
 
 const getGlobalStats = async (req, res) => {
   try {
-    const transactionRes = await pool.query(
+    const transactionsRes = await pool.query(
       "SELECT COUNT(*) FROM transactions"
     );
-    const userRes = await pool.query("SELECT COUNT(*) FROM users");
+    const usersRes = await pool.query("SELECT COUNT(*) FROM users");
 
     res.status(200).json({
       success: true,
