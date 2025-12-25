@@ -134,7 +134,7 @@ const getGlobalStats = async (req, res) => {
     res.status(200).json({
       success: true,
       data: {
-        ransactions: parseInt(transactionsRes.rows[0].count) + 150,
+        transactions: parseInt(transactionsRes.rows[0].count) + 150,
         users: parseInt(usersRes.rows[0].count) + 12,
       },
     });

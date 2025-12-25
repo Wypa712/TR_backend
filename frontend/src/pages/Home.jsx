@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const isAuth = useAuthStore((state) => state.isAuth);
-  const [stats, setStats] = useState({});
+  const [stats, setStats] = useState({transactions: 0, users: 0});
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         const res = await transactionService.getGlobalStats();
 
-        if (res.success) {
+        if (res.data.success) {
           setStats(res.data.data);
         }
 
