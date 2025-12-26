@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import transactionService from "../api/services/transactionService";
 import { useEffect, useState } from "react";
+import CountUp from "react-countup";
 
 export default function Home() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -22,6 +23,16 @@ export default function Home() {
     fetchStats();
   }, []);
 
+  const AnimatedNumber = ({ value, colorClass, prefix = "", suffix = "" }) => (
+    <CountUp
+      end={value || 0}
+      duration={1.5}
+      separator=" "
+      prefix={prefix}
+      suffix={suffix}
+      className={colorClass}
+    />
+  );
   return (
     <div className="min-h-screen bg-base-100 flex flex-col">
       {/* Hero Section */}
@@ -69,21 +80,32 @@ export default function Home() {
           <div className="stats stats-vertical lg:stats-horizontal shadow w-full border border-base-300">
             <div className="stat place-items-center">
               <div className="stat-title">Користувачів</div>
-              <div className="stat-value text-primary">{stats.users}</div>
+              <div className="stat-value text-primary">
+                <AnimatedNumber value={stats.users} colorClass="text-primary" />
+              </div>
               <div className="stat-desc">Вже з нами</div>
             </div>
 
             <div className="stat place-items-center">
               <div className="stat-title">Транзакцій</div>
               <div className="stat-value text-secondary">
-                {stats.transactions}
+                <AnimatedNumber
+                  value={stats.transactions}
+                  colorClass="text-primary"
+                />
               </div>
               <div className="stat-desc">Записано в системі</div>
             </div>
 
             <div className="stat place-items-center">
               <div className="stat-title">Надійність</div>
-              <div className="stat-value text-accent">99.9%</div>
+              <div className="stat-value text-accent">
+                <AnimatedNumber
+                  value={99}
+                  suffix={" %"}
+                  colorClass="text-primary"
+                />
+              </div>
               <div className="stat-desc">Доступність сервісу</div>
             </div>
           </div>

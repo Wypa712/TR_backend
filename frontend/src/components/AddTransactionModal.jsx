@@ -13,6 +13,23 @@ export default function AddTransactionModal({ onTransactionAdded }) {
     setDate(today);
   }, []);
 
+  const CATEGORIES = {
+    expense: [
+      { label: "Харчування", icon: "🍔" },
+      { label: "Транспорт", icon: "🚗" },
+      { label: "Житло", icon: "🏠" },
+      { label: "Розваги", icon: "🎁" },
+      { label: "Здоров'я", icon: "🏥" },
+      { label: "Шопінг", icon: "🛍️" },
+    ],
+    income: [
+      { label: "Зарплата", icon: "💰" },
+      { label: "Фріланс", icon: "💻" },
+      { label: "Подарунок", icon: "🎈" },
+      { label: "Інше", icon: "📈" },
+    ],
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -24,9 +41,9 @@ export default function AddTransactionModal({ onTransactionAdded }) {
     };
 
     try {
-      await transactionService.createTransactions(payload);
-
       document.getElementById("add_modal").close();
+
+      await transactionService.createTransactions(payload);
 
       if (onTransactionAdded) onTransactionAdded();
 
@@ -77,20 +94,21 @@ export default function AddTransactionModal({ onTransactionAdded }) {
             onChange={(e) => setAmount(e.target.value)}
           />
 
-          <div className="form-control w-full">
-            <input
-              list="category-list"
-              className="input input-bordered w-full"
-              placeholder="Выберите или введите категорию"
+          <div className="grid grid-cols-1 gap-2">
+            <label className="label-text opacity-60 ml-1">Категорія</label>
+            <select
+              className="select select-bordered w-full font-medium"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-            />
-            <datalist id="category-list">
-              <option value="Еда" />
-              <option value="Транспорт" />
-              <option value="Зарплата" />
-              <option value="Развлечения" />
-            </datalist>
+            >
+              {(isExpense ? CATEGORIES.expense : CATEGORIES.income).map(
+                (cat) => (
+                  <option key={cat.label} value={cat.label}>
+                    {cat.icon} {cat.label}
+                  </option>
+                )
+              )}
+            </select>
           </div>
 
           <input
